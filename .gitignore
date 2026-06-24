@@ -1,0 +1,12 @@
+.env
+*.env
+**pycache**/
+.ipynb_checkpoints/
+.DS_Store
+model/
+app/model/
+*.pt
+*.bin
+*.safetensors
+wandb/
+.cache/
