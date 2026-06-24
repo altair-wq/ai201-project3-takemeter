@@ -97,8 +97,8 @@ Comment:
 
 | Model | Accuracy | Notes |
 | :--- | :---: | :--- |
-| **Groq Zero-Shot Baseline (Llama-3.3)** | TODO | Zero-shot performance |
-| **Fine-Tuned DistilBERT Classifier** | TODO | Trained for 3 epochs |
+| **Groq Zero-Shot Baseline (Llama-3.3)** | 39.39% | Zero-shot performance on 33 test comments |
+| **Fine-Tuned DistilBERT Classifier** | 48.48% | Trained for 3 epochs (9.09% improvement) |
 
 ### Per-Class Performance Metrics (Fine-Tuned Model)
 
