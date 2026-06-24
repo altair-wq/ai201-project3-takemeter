@@ -1,0 +1,165 @@
+{
+  "labels": [
+    "analysis",
+    "hot_take",
+    "reaction"
+  ],
+  "label2id": {
+    "analysis": 0,
+    "hot_take": 1,
+    "reaction": 2
+  },
+  "id2label": {
+    "0": "analysis",
+    "1": "hot_take",
+    "2": "reaction"
+  },
+  "train_size": 154,
+  "validation_size": 33,
+  "test_size": 33,
+  "baseline_accuracy": 0.3939,
+  "fine_tuned_accuracy": 0.4848,
+  "baseline_classification_report": {
+    "analysis": {
+      "precision": 0.75,
+      "recall": 0.25,
+      "f1-score": 0.375,
+      "support": 12.0
+    },
+    "hot_take": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 11.0
+    },
+    "reaction": {
+      "precision": 0.37037037037037035,
+      "recall": 1.0,
+      "f1-score": 0.5405405405405406,
+      "support": 10.0
+    },
+    "accuracy": 0.3939393939393939,
+    "macro avg": {
+      "precision": 0.37345679012345673,
+      "recall": 0.4166666666666667,
+      "f1-score": 0.30518018018018017,
+      "support": 33.0
+    },
+    "weighted avg": {
+      "precision": 0.3849607182940516,
+      "recall": 0.3939393939393939,
+      "f1-score": 0.3001638001638002,
+      "support": 33.0
+    }
+  },
+  "fine_tuned_classification_report": {
+    "analysis": {
+      "precision": 0.41379310344827586,
+      "recall": 1.0,
+      "f1-score": 0.5853658536585366,
+      "support": 12.0
+    },
+    "hot_take": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 11.0
+    },
+    "reaction": {
+      "precision": 1.0,
+      "recall": 0.4,
+      "f1-score": 0.5714285714285714,
+      "support": 10.0
+    },
+    "accuracy": 0.48484848484848486,
+    "macro avg": {
+      "precision": 0.47126436781609193,
+      "recall": 0.4666666666666666,
+      "f1-score": 0.3855981416957026,
+      "support": 33.0
+    },
+    "weighted avg": {
+      "precision": 0.45350052246603967,
+      "recall": 0.48484848484848486,
+      "f1-score": 0.38602048358145913,
+      "support": 33.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      12,
+      0,
+      0
+    ],
+    [
+      11,
+      0,
+      0
+    ],
+    [
+      6,
+      0,
+      4
+    ]
+  ],
+  "wrong_predictions": [
+    {
+      "text": "Colombia had them on the ropes in the first quarter but Congo got their act together after the water break. They looked way more organized and effective",
+      "true_label": "hot_take",
+      "predicted_label": "analysis",
+      "confidence": 0.4
+    },
+    {
+      "text": "nations league isnt a real tournament, in what world do u take lamine yamal and pedri off in a final that you\u2019re trying to win, its just a tournament that replaced friendlies to make more money",
+      "true_label": "hot_take",
+      "predicted_label": "analysis",
+      "confidence": 0.41
+    },
+    {
+      "text": "What is the logic that a call can be changed from a corner to a goal kick but not the other way around?",
+      "true_label": "hot_take",
+      "predicted_label": "analysis",
+      "confidence": 0.4
+    },
+    {
+      "text": "Is it just me but Team England is not getting much mention or love across social compared to other teams? Im in USA.",
+      "true_label": "hot_take",
+      "predicted_label": "analysis",
+      "confidence": 0.4
+    },
+    {
+      "text": "We deserved this we deserved that. We deserved nothing for leaving Fajardo on for that long.",
+      "true_label": "hot_take",
+      "predicted_label": "analysis",
+      "confidence": 0.35
+    }
+  ],
+  "sample_classifications": [
+    {
+      "text": "Because the last one was 4 years ago and so many things could have happened by the time you have to defend it. In fact, out of all the defending champions in the 21st century, only Brazil 2006 and France 2022 weren't eliminated in the group stage. Personally I think Argentina will do fine though.",
+      "predicted_label": "analysis",
+      "confidence": 0.45
+    },
+    {
+      "text": "Colombia had them on the ropes in the first quarter but Congo got their act together after the water break. They looked way more organized and effective",
+      "predicted_label": "analysis",
+      "confidence": 0.4
+    },
+    {
+      "text": "nations league isnt a real tournament, in what world do u take lamine yamal and pedri off in a final that you\u2019re trying to win, its just a tournament that replaced friendlies to make more money",
+      "predicted_label": "analysis",
+      "confidence": 0.41
+    },
+    {
+      "text": "What is the logic that a call can be changed from a corner to a goal kick but not the other way around?",
+      "predicted_label": "analysis",
+      "confidence": 0.4
+    },
+    {
+      "text": "Is it just me but Team England is not getting much mention or love across social compared to other teams? Im in USA.",
+      "predicted_label": "analysis",
+      "confidence": 0.4
+    }
+  ],
+  "model_name": "distilbert-base-uncased"
+}

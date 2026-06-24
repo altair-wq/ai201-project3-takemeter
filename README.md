@@ -53,7 +53,7 @@ We identified several complex boundary comments where taxonomy rules had to be s
 ## Fine-Tuning Approach
 * **Base Model**: `distilbert-base-uncased` (a lightweight, resource-efficient version of BERT).
 * **Environment**: Google Colab utilizing a free T4 GPU.
-* **Split**: 70% Train, 15% Validation, 15% Test.
+* **Split**: 70% Train (154 comments), 15% Validation (33 comments), 15% Test (33 comments)
 * **Hyperparameters**:
   - `epochs`: 3
   - `learning rate`: 2e-5
@@ -100,68 +100,78 @@ Comment:
 | **Groq Zero-Shot Baseline (Llama-3.3)** | 39.39% | Zero-shot performance on 33 test comments |
 | **Fine-Tuned DistilBERT Classifier** | 48.48% | Trained for 3 epochs (9.09% improvement) |
 
-### Per-Class Performance Metrics (Fine-Tuned Model)
+### Per-Class Performance Metrics (Groq Zero-Shot Baseline)
 
-| Label | Precision | Recall | F1-Score |
-| :--- | :---: | :---: | :---: |
-| **analysis** | TODO | TODO | TODO |
-| **hot_take** | TODO | TODO | TODO |
-| **reaction** | TODO | TODO | TODO |
+| Label | Precision | Recall | F1-Score | Support |
+| :--- | :---: | :---: | :---: | :---: |
+| **analysis** | 0.750 | 0.250 | 0.375 | 12 |
+| **hot_take** | 0.000 | 0.000 | 0.000 | 11 |
+| **reaction** | 0.370 | 1.000 | 0.541 | 10 |
+
+### Per-Class Performance Metrics (Fine-Tuned DistilBERT Model)
+
+| Label | Precision | Recall | F1-Score | Support |
+| :--- | :---: | :---: | :---: | :---: |
+| **analysis** | 0.414 | 1.000 | 0.585 | 12 |
+| **hot_take** | 0.000 | 0.000 | 0.000 | 11 |
+| **reaction** | 1.000 | 0.400 | 0.571 | 10 |
 
 ## Confusion Matrix
 
 | True Label | Predicted analysis | Predicted hot_take | Predicted reaction |
 | :--- | :---: | :---: | :---: |
-| **analysis** | TODO | TODO | TODO |
-| **hot_take** | TODO | TODO | TODO |
-| **reaction** | TODO | TODO | TODO |
+| **analysis** | 12 | 0 | 0 |
+| **hot_take** | 11 | 0 | 0 |
+| **reaction** | 6 | 0 | 4 |
 
-*Note: The visualized confusion matrix graph will be saved at [results/confusion_matrix.png](file:///Users/altairadilkhan/.gemini/antigravity/scratch/ai201-project3-takemeter/results/confusion_matrix.png) after running the evaluation script.*
+### Interpretation
+The fine-tuned model improved over the Groq zero-shot baseline by 9.09 percentage points, but performance is still weak overall. The model learned to identify analysis and some reaction comments, but it completely failed to predict hot_take on the test set. The confusion matrix shows that every hot_take example was misclassified as analysis. This suggests the model over-relied on soccer-specific wording and treated opinionated comments as analysis whenever they included match context or football terms.
+
+*Note: The visualized confusion matrix graph is saved at [results/confusion_matrix.png](file:///Users/altairadilkhan/.gemini/antigravity/scratch/ai201-project3-takemeter/results/confusion_matrix.png).*
 
 ## Wrong Prediction Analysis
 
-*Review 3 incorrect predictions from your test set evaluation and list them below:*
-
 ### Wrong Prediction 1
-* **Text**: TODO
-* **True label**: TODO
-* **Predicted label**: TODO
-* **Why it failed**: TODO
-* **What would help**: TODO
+* **Text**: "Colombia had them on the ropes in the first quarter but Congo got their act together after the water break. They looked way more organized and effective"
+* **True label**: hot_take
+* **Predicted label**: analysis
+* **Confidence**: 0.40
+* **Why it failed**: The model likely saw football-specific language like “organized,” “water break,” and match-flow description, so it treated the comment as analysis. However, the original label is hot_take because the comment makes a broad judgment about team performance without deeper tactical evidence.
+* **What would help**: Adding training examples of hot takes that discuss match events or use team performance descriptors.
 
 ### Wrong Prediction 2
-* **Text**: TODO
-* **True label**: TODO
-* **Predicted label**: TODO
-* **Why it failed**: TODO
-* **What would help**: TODO
+* **Text**: "nations league isnt a real tournament, in what world do u take lamine yamal and pedri off in a final that you’re trying to win, its just a tournament that replaced friendlies to make more money"
+* **True label**: hot_take
+* **Predicted label**: analysis
+* **Confidence**: 0.41
+* **Why it failed**: The model likely focused on named entities and competition context, such as Nations League, Lamine Yamal, and Pedri. But the comment is mainly an unsupported judgment about the tournament’s legitimacy, so hot_take is more appropriate.
+* **What would help**: Adding training examples that express opinions about competitions or player selections without tactical/statistical analysis.
 
 ### Wrong Prediction 3
-* **Text**: TODO
-* **True label**: TODO
-* **Predicted label**: TODO
-* **Why it failed**: TODO
-* **What would help**: TODO
+* **Text**: "What is the logic that a call can be changed from a corner to a goal kick but not the other way around?"
+* **True label**: hot_take
+* **Predicted label**: analysis
+* **Confidence**: 0.40
+* **Why it failed**: The model likely interpreted this as reasoning because it asks about “logic” and refereeing rules. However, in the dataset it functions more as a frustrated judgment about officiating rather than a detailed rules analysis.
+* **What would help**: Adding training examples of questions/complaints about refereeing rules labeled as hot takes or reactions.
 
 ## Sample Classifications
 
-*Test the model on some arbitrary examples and log predictions:*
-
 | Comment | Predicted Label | Confidence | Why it makes sense |
 | :--- | :---: | :---: | :--- |
-| *Example Comment 1* | TODO | TODO | TODO |
-| *Example Comment 2* | TODO | TODO | TODO |
-| *Example Comment 3* | TODO | TODO | TODO |
+| "Because the last one was 4 years ago and so many things could have happened by the time you have to defend it. In fact, out of all the defending champions in the 21st century, only Brazil 2006 and France 2022 weren't eliminated in the group stage. Personally I think Argentina will do fine though." | analysis | 0.45 | It contains specific tournament math, historical stats, and detailed context about group stage elimination history. |
+| "Colombia had them on the ropes in the first quarter but Congo got their act together after the water break. They looked way more organized and effective" | analysis | 0.40 | It uses technical descriptors like "organized and effective" and discusses match flow context. |
+| "nations league isnt a real tournament, in what world do u take lamine yamal and pedri off in a final that you’re trying to win, its just a tournament that replaced friendlies to make more money" | analysis | 0.41 | It references player names, tournament names, and a final match scenario. |
+| "What is the logic that a call can be changed from a corner to a goal kick but not the other way around?" | analysis | 0.40 | It references refereeing logic and rule details. |
+| "Is it just me but Team England is not getting much mention or love across social compared to other teams? Im in USA." | analysis | 0.40 | It evaluates comparative media coverage across social platforms. |
 
 ## Reflection: What the Model Learned vs. What I Intended
-* **Intended**: Teach the model to differentiate between evidence-based reasoning (`analysis`), unsupported bold opinions (`hot_take`), and pure emotional expression (`reaction`).
-* **Likely Learned**:
-  - The model likely relies heavily on comment length and stylistic indicators. Short comments containing punctuation patterns (exclamation, capitalization) or internet slang (lol, wtf) are strongly associated with `reaction`.
-  - Analytical text structures (comma splices, statistical symbols, soccer-specific terminology) map to `analysis`.
-  - Negative qualitative descriptors (e.g. "fraud", "washed", "finished") map directly to `hot_take`.
-* **Limitations**:
-  - The boundary between `hot_take` and `analysis` remains challenging when a subjective claim includes partial reasoning.
-  - Sarcastic predictions (e.g., "we are going to win the quadruple after this 1-0 win") are often misclassified because detecting irony requires broad contextual understanding.
+* The model learned that longer comments with soccer-specific terms often look like analysis.
+* It learned reaction somewhat well when comments were clearly short or emotional.
+* It failed to learn hot_take as a separate class.
+* The biggest failure pattern was hot_take → analysis.
+* This likely happened because many hot takes still include soccer-specific vocabulary, player names, competition names, or match context.
+* To improve the model, I would add more hot_take examples, especially examples that contain soccer-specific terms but are still unsupported opinions.
 
 ## Spec Reflection
 * **Spec Benefit**: Writing down the label taxonomy and mapping out hard edge cases before collecting the final dataset forced rigorous validation. It minimized label ambiguity during dataset creation.
