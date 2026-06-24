@@ -208,4 +208,4 @@ streamlit run app.py
 *Note: If you have downloaded and placed your fine-tuned model inside `app/model/`, the application will perform live neural network inference. Otherwise, the UI will fall back to a rule-based mock mode for demonstration purposes.*
 
 ## Demo Video
-TODO: Add your demo video walk-through link here.
+[Watch the TakeMeter Demo Video](https://www.loom.com/share/9cd4d4fd6a5e4e1f96325f6aae1956dd)
