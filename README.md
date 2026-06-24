@@ -24,14 +24,14 @@ TakeMeter is a machine learning text classifier designed to categorize soccer-re
 * **Dataset File**: [takemeter_dataset.csv](file:///Users/altairadilkhan/.gemini/antigravity/scratch/ai201-project3-takemeter/data/takemeter_dataset.csv)
 * **Source**: Public soccer and World Cup Reddit threads (mainly r/soccer and r/worldcup).
 * **Collection Method**: Comments were manually copied from public threads. AI-assisted cleaning was used to strip formatting and noise, and initial label recommendations were suggested by AI. All comments and labels were manually reviewed and verified by the student before training.
-* **Total Rows**: TODO (will be automatically filled by running validation)
+* **Total Rows**: 220
 * **Label Distribution**:
 
 | Label | Count | Percentage |
 | :--- | :---: | :---: |
-| **analysis** | TODO | TODO |
-| **hot_take** | TODO | TODO |
-| **reaction** | TODO | TODO |
+| **analysis** | 80 | 36.36% |
+| **hot_take** | 70 | 31.82% |
+| **reaction** | 70 | 31.82% |
 
 ## Difficult-to-Label Examples
 
